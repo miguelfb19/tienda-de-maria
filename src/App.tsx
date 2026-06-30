@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import ListaPrecios from "./components/ListaPrecios";
 import MetodosPago from "./components/MetodosPago";
+import qrImage from "./assets/qr.png";
 
 export default function App() {
   const handlePrint = useCallback(() => {
@@ -44,6 +45,17 @@ export default function App() {
         <ListaPrecios />
         <MetodosPago />
       </main>
+
+      <div className="hidden print:mt-6 print:block print:text-center">
+        <img
+          className="mx-auto max-w-40"
+          src={qrImage}
+          alt="QR de la Tienda de María"
+        />
+        <p className="mt-2 text-xs text-text-light">
+          Escanea para visitar la tienda
+        </p>
+      </div>
 
       <footer className="mt-5 shrink-0 text-center text-[11px] text-text-light sm:text-xs">
         ¡Gracias por comprar en la tienda de María! 💖
