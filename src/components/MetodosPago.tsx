@@ -60,7 +60,7 @@ const METODOS: readonly Metodo[] = [
     iconBg: "bg-lavender",
     nombre: "Efectivo",
     subtitulo: "Pago en el sitio",
-    dato: "Las vueltas están aquí",
+    dato: "Las vueltas están en la caja",
     esNumero: false,
   },
 ] as const;
