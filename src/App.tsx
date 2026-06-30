@@ -1,11 +1,48 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import ListaPrecios from "./components/ListaPrecios";
 import MetodosPago from "./components/MetodosPago";
 import qrImage from "./assets/qr.png";
 
+function compartir() {
+  if (navigator.share) {
+    navigator.share({
+      title: "Tienda de María",
+      text: "Tienda de María — Autoservicio Mujin Hanbaijo",
+      url: window.location.href,
+    }).catch(() => {
+      // usuario canceló
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href).catch(() => {
+      // falló copiar
+    });
+  }
+}
+
 export default function App() {
+  const [shared, setShared] = useState(false);
+
   const handlePrint = useCallback(() => {
     window.print();
+  }, []);
+
+  const esAdmin = (() => {
+    try {
+      const data = localStorage.getItem("admin");
+      if (!data) return false;
+      const parsed = JSON.parse(data);
+      return parsed.admin === true;
+    } catch {
+      return false;
+    }
+  })();
+
+  const handleShare = useCallback(() => {
+    compartir();
+    if (!navigator.share) {
+      setShared(true);
+      setTimeout(() => setShared(false), 2000);
+    }
   }, []);
 
   return (
@@ -22,14 +59,26 @@ export default function App() {
         <p className="mt-0.5 text-[13px] text-text-light sm:text-sm">
           Tu tiendita de confianza
         </p>
-        <button
-          className="absolute right-0 top-0 cursor-pointer rounded-xl bg-pink-light px-3.5 py-1.5 text-[13px] font-bold text-pink-dark transition-colors hover:bg-pink print:hidden"
-          onClick={handlePrint}
-          title="Imprimir"
-          type="button"
-        >
-          🖨️ Imprimir
-        </button>
+        <div className="absolute right-0 top-0 flex gap-1.5 no-print">
+          <button
+            className="cursor-pointer rounded-xl bg-pink-light px-3.5 py-1.5 text-[13px] font-bold text-text transition-colors hover:bg-pink"
+            onClick={handleShare}
+            title="Compartir"
+            type="button"
+          >
+            {shared ? "✅ Link copiado" : "🔗 Compartir"}
+          </button>
+          {esAdmin && (
+            <button
+              className="cursor-pointer rounded-xl bg-pink-light px-3.5 py-1.5 text-[13px] font-bold text-text transition-colors hover:bg-pink"
+              onClick={handlePrint}
+              title="Imprimir"
+              type="button"
+            >
+              🖨️ Imprimir
+            </button>
+          )}
+        </div>
       </header>
 
       <section className="mb-5 shrink-0 rounded-2xl border-2 border-dashed border-pink-light bg-surface px-5 py-3.5 text-center">
