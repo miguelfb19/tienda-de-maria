@@ -108,7 +108,7 @@ export default function MetodosPago() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div
-                className={`flex h-[42px] w-[42px] items-center justify-center rounded-[10px] text-lg font-bold ${m.iconBg}`}
+                className={`flex h-10.5 w-10.5 items-center justify-center rounded-[10px] text-lg font-bold ${m.iconBg}`}
                 aria-hidden="true"
               >
                 {m.icon}
