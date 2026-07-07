@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
 import ListaPrecios from "./components/ListaPrecios";
 import MetodosPago from "./components/MetodosPago";
-import qrImage from "./assets/qr.png";
+import qrBreB from "./assets/qr-breB.png";
+import qrNequi from "./assets/qr-nequi.png";
+import qrImage from "./assets/qr-web.png";
 
 function compartir() {
   if (navigator.share) {
@@ -95,15 +97,25 @@ export default function App() {
         <MetodosPago />
       </main>
 
-      <div className="hidden print:mt-6 print:block print:text-center">
-        <img
-          className="mx-auto max-w-40"
-          src={qrImage}
-          alt="QR de la Tienda de María"
-        />
-        <p className="mt-2 text-xs text-text-light">
-          Escanea para visitar la tienda
-        </p>
+      <div className="hidden print:mt-6 print:block">
+        <div className="mb-3 text-center text-sm font-semibold uppercase tracking-[0.2em] text-text-light">
+          Códigos QR
+        </div>
+        <div className="grid gap-3 text-center grid-cols-3">
+          <div className="rounded-xl border border-border/80 bg-white/80 p-3">
+            <div className="mb-2 text-sm font-bold">Bre-B</div>
+            <img className="mx-auto max-w-32" src={qrBreB} alt="QR de Bre-B" />
+          </div>
+          <div className="rounded-xl border border-border/80 bg-white/80 p-3">
+            <div className="mb-2 text-sm font-bold">Nequi</div>
+            <img className="mx-auto max-w-32" src={qrNequi} alt="QR de Nequi" />
+          </div>
+          <div className="rounded-xl border border-border/80 bg-white/80 p-3">
+            <div className="mb-2 text-sm font-bold">Visitar la tienda</div>
+            <img className="mx-auto max-w-32" src={qrImage} alt="QR de la Tienda de María" />
+            <p className="mt-2 text-xs text-text-light">Escanea para visitar la tienda</p>
+          </div>
+        </div>
       </div>
 
       <footer className="mt-5 shrink-0 text-center text-[11px] text-text-light sm:text-xs">
